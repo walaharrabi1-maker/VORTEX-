@@ -1,306 +1,500 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#080910">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
 <title>VORTEX</title>
+
 <style>
-:root{--bg:#080910;--panel:#111321;--line:#25283d;--purple:#9272ff;--blue:#5aa9ff;--text:#f5f4ff;--muted:#898ca8;--green:#64e7b1}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{max-width:480px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 20px calc(95px + env(safe-area-inset-bottom))}
-header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0c}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#a28aff,#4b62df);display:grid;place-items:center;font-size:25px;font-weight:900;color:white;box-shadow:0 0 28px #8064ff40}
-.brand-name{font-size:18px;font-weight:850;letter-spacing:3px}
-.brand-sub{font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:4px}
-.status{font-size:9px;color:var(--green);letter-spacing:1px}
-.status:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px}
-main{padding-top:25px}
-.eyebrow{font-size:10px;letter-spacing:2.5px;color:var(--purple);font-weight:800}
-h1{font-size:33px;letter-spacing:-1.4px;margin:10px 0}
-h2{font-size:17px;margin:0}
-p{color:var(--muted);font-size:13px;line-height:1.65}
-.hero{padding:27px 0 24px}
-.hero-art{height:130px;border:1px solid #8e78ff2b;border-radius:25px;background:radial-gradient(ellipse at 50% 100%,#6252c42c,transparent 65%),linear-gradient(135deg,#151426,#0d101b);display:grid;place-items:center;margin-bottom:25px;position:relative;overflow:hidden}
-.hero-art:before,.hero-art:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #a18cff1c;transform:rotate(45deg);border-radius:30px}
-.hero-art:after{width:120px;height:120px}
-.vortex-mark{z-index:1;font-size:54px;font-weight:900;font-style:italic;color:#c3b4ff;text-shadow:0 0 30px #9675ff}
-.panel{background:linear-gradient(145deg,#141625,#0f111c);border:1px solid var(--line);border-radius:20px;padding:19px;margin:15px 0}
-.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
-.tag{font-size:9px;color:var(--purple);border:1px solid #8c72ff55;background:#8c72ff12;padding:6px 8px;border-radius:7px;letter-spacing:1px}
-.field{width:100%;height:52px;background:#090b13;border:1px solid #2b2e44;border-radius:12px;color:white;padding:0 14px;outline:none}
-.field:focus{border-color:var(--purple)}
-.primary{width:100%;min-height:51px;border:0;border-radius:12px;margin-top:12px;background:linear-gradient(100deg,#8e6cff,#5b79f8);color:white;font-weight:800;font-size:12px;letter-spacing:1.2px;box-shadow:0 8px 25px #765cff22}
-.primary:disabled{opacity:.55}
-.message{font-size:12px;line-height:1.5;margin-top:12px;display:none;overflow-wrap:anywhere}
-.message.error{display:block;color:#ff8e9b}
-.message.success{display:block;color:var(--green)}
-.hidden{display:none!important}
-.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.stat{background:#0b0d16;border:1px solid #25283a;border-radius:13px;padding:14px}
-.stat small{font-size:9px;letter-spacing:1px;color:var(--muted)}
-.stat strong{display:block;font-size:14px;margin-top:9px}
-.game-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.game-option{background:#0a0c15;border:1px solid #292b40;border-radius:12px;padding:15px 10px;color:var(--muted);text-align:left}
-.game-option.active{border-color:var(--purple);background:#8e6cff13;color:white;box-shadow:inset 0 0 0 1px #8e6cff22}
-.game-option strong{display:block;font-size:12px;margin-bottom:6px}
-.game-option span{font-size:10px}
-.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.feature{background:linear-gradient(145deg,#151727,#0f111b);border:1px solid var(--line);border-radius:17px;padding:18px 14px;text-align:left;color:white;min-height:142px}
-.feature.active{border-color:var(--purple);background:linear-gradient(145deg,#24203e,#111322)}
-.feature-icon{font-size:23px;color:#b6a5ff;margin-bottom:17px}
-.feature strong{display:block;font-size:13px;letter-spacing:1px}
-.feature small{display:block;font-size:10px;color:var(--muted);margin-top:7px}
-.feature.active small{color:#b7a8ff}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin:27px 0 12px}
-.section-title span{font-size:10px;color:var(--muted);letter-spacing:1px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#0a0b13ed;border-top:1px solid #ffffff12;backdrop-filter:blur(20px);display:flex;justify-content:center;z-index:10}
-.nav-inner{display:flex;justify-content:space-around;width:100%;max-width:440px}
-.nav-btn{border:0;background:transparent;color:#777b96;font-size:9px;letter-spacing:.5px;min-width:58px;padding:7px 4px}
-.nav-btn .nav-icon{font-size:18px;display:block;margin-bottom:6px}
-.nav-btn.active{color:#b6a2ff}
-.notice{font-size:11px;color:var(--muted);line-height:1.6;margin:16px 2px}
-footer{text-align:center;color:#555971;font-size:9px;letter-spacing:2px;padding:28px 0 8px}
-.spinner{width:16px;height:16px;border:2px solid #ffffff55;border-top-color:white;border-radius:50%;display:inline-block;vertical-align:middle;animation:spin .7s linear infinite;margin-right:8px}
-@keyframes spin{to{transform:rotate(360deg)}}
+:root {
+  --bg:#080b12;
+  --panel:#101622;
+  --line:#273448;
+  --text:#f3f7ff;
+  --muted:#8998b0;
+  --cyan:#62e6ff;
+  --purple:#8c73ff;
+  --green:#55e6a5;
+  --red:#ff6e83;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#182c45 0,transparent 45%),var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+.hidden { display:none!important; }
+.screen {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 18px;
+}
+.login { width:100%;max-width:420px; }
+.brand { text-align:center;margin-bottom:28px; }
+.logo {
+  width:76px;height:76px;margin:0 auto 16px;
+  display:grid;place-items:center;
+  border-radius:24px;
+  background:linear-gradient(145deg,#62e6ff33,#8c73ff33);
+  border:1px solid #62e6ff88;
+  color:var(--cyan);font-size:34px;font-weight:900;
+  box-shadow:0 0 40px #62e6ff18;
+}
+.brand h1 { margin:0;letter-spacing:6px;font-size:30px; }
+.brand p { color:var(--muted);font-size:10px;letter-spacing:3px; }
+.panel {
+  background:linear-gradient(155deg,#151e2df5,#0c111bf5);
+  border:1px solid var(--line);
+  border-radius:21px;padding:21px;
+  box-shadow:0 18px 55px #0005;
+}
+.eyebrow { color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:2px; }
+.panel h2 { margin:10px 0 7px; }
+.sub { color:var(--muted);font-size:13px;line-height:1.6; }
+.field {
+  width:100%;padding:16px;border-radius:12px;
+  border:1px solid var(--line);background:#090e17;
+  color:white;outline:none;
+}
+.field:focus { border-color:var(--cyan); }
+.primary {
+  width:100%;padding:15px;margin-top:12px;
+  border:0;border-radius:12px;
+  background:linear-gradient(100deg,var(--cyan),#91f3e5);
+  color:#071018;font-weight:900;letter-spacing:1px;
+}
+.primary:disabled { opacity:.6; }
+.status { color:var(--muted);font-size:12px;line-height:1.5;margin-top:12px; }
+.error { color:var(--red); }
+#app {
+  max-width:540px;margin:auto;
+  padding:calc(17px + env(safe-area-inset-top)) 15px 105px;
+}
+.topbar { display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:20px; }
+.mini-brand { display:flex;align-items:center;gap:10px; }
+.mini-logo {
+  width:42px;height:42px;display:grid;place-items:center;
+  border:1px solid #62e6ff77;border-radius:13px;
+  color:var(--cyan);font-weight:900;background:#62e6ff15;
+}
+.mini-brand strong { display:block;letter-spacing:2px; }
+.mini-brand small { display:block;color:var(--muted);font-size:9px;margin-top:4px;letter-spacing:1px; }
+.game-switch { display:flex;padding:4px;background:#0c111b;border:1px solid var(--line);border-radius:12px; }
+.game-switch button {
+  padding:9px 10px;border:0;border-radius:8px;
+  background:transparent;color:var(--muted);
+  font-size:10px;font-weight:800;
+}
+.game-switch button.active { background:#182537;color:var(--cyan); }
+.hero { margin-bottom:20px; }
+.hero h2 { margin:9px 0 5px; }
+.hero p { color:var(--muted);font-size:12px;margin:0; }
+.online { color:var(--green);font-size:10px;white-space:nowrap; }
+.section-title {
+  display:flex;justify-content:space-between;align-items:center;
+  margin:22px 3px 12px;
+}
+.section-title h3 { font-size:12px;letter-spacing:2px;margin:0; }
+.section-title span { font-size:9px;color:var(--muted); }
+.feature-card {
+  border:1px solid var(--line);border-radius:17px;
+  background:#101622eF;margin-bottom:12px;overflow:hidden;
+}
+.feature-head {
+  width:100%;display:flex;align-items:center;gap:12px;
+  padding:15px;background:transparent;border:0;color:var(--text);text-align:left;
+}
+.feature-icon {
+  width:39px;height:39px;display:grid;place-items:center;
+  border-radius:12px;background:#62e6ff12;color:var(--cyan);
+  border:1px solid #62e6ff22;font-size:20px;
+}
+.feature-name { flex:1; }
+.feature-name strong { font-size:13px;letter-spacing:1px; }
+.feature-name small { display:block;color:var(--muted);font-size:10px;margin-top:4px; }
+.chevron { color:var(--muted); }
+.feature-card.open .chevron { transform:rotate(180deg); }
+.feature-options { display:none;padding:0 12px 12px; }
+.feature-card.open .feature-options { display:block; }
+.option {
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 10px;margin-top:5px;border-radius:11px;
+  border:1px solid transparent;background:#ffffff05;
+}
+.option.selected { border-color:#62e6ff44;background:#62e6ff0c; }
+.option strong { font-size:12px; }
+.option small { display:block;color:var(--muted);font-size:10px;margin-top:4px; }
+.toggle {
+  width:42px;height:24px;flex-shrink:0;padding:3px;
+  border:1px solid #354154;border-radius:20px;background:#1a2331;
+}
+.toggle:after {
+  content:"";display:block;width:16px;height:16px;
+  border-radius:50%;background:#718096;transition:.2s;
+}
+.toggle.on { background:#62e6ff33;border-color:var(--cyan); }
+.toggle.on:after { transform:translateX(17px);background:var(--cyan); }
+.launch {
+  width:100%;margin-top:18px;padding:17px;border:0;border-radius:14px;
+  background:linear-gradient(100deg,var(--purple),var(--cyan));
+  color:#071018;font-size:12px;font-weight:900;letter-spacing:1.5px;
+}
+.launch:disabled { opacity:.7; }
+.page { display:none; }
+.page.active { display:block; }
+.info-item,.setting-row { padding:15px 0;border-bottom:1px solid var(--line); }
+.info-item:last-child,.setting-row:last-child { border-bottom:0; }
+.info-item strong,.setting-row strong { display:block;font-size:12px; }
+.info-item small,.setting-row small {
+  display:block;color:var(--muted);font-size:11px;margin-top:6px;line-height:1.5;
+}
+.link-btn {
+  display:inline-block;color:var(--cyan);text-decoration:none;
+  font-size:12px;margin-top:9px;overflow-wrap:anywhere;
+}
+.value { color:var(--cyan);font-size:12px;margin-top:7px;overflow-wrap:anywhere; }
+.secondary {
+  width:100%;padding:13px;margin-top:12px;border-radius:11px;
+  border:1px solid var(--line);background:#0b111b;color:var(--text);
+}
+.bottom-nav {
+  position:fixed;z-index:5;bottom:0;left:0;right:0;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:#080b12ed;border-top:1px solid var(--line);
+  backdrop-filter:blur(18px);
+}
+.nav-inner { max-width:520px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr); }
+.nav-btn {
+  padding:9px;border:0;border-radius:11px;background:transparent;
+  color:var(--muted);font-size:10px;font-weight:800;
+}
+.nav-icon { display:block;font-size:19px;margin-bottom:5px; }
+.nav-btn.active { color:var(--cyan);background:#62e6ff0c; }
+.toast {
+  position:fixed;z-index:10;bottom:95px;left:15px;right:15px;
+  padding:13px;border:1px solid var(--line);border-radius:12px;
+  background:#192334;text-align:center;font-size:12px;
+}
 </style>
 </head>
+
 <body>
-<div class="app">
-<header>
-  <div class="brand"><div class="logo">V</div><div><div class="brand-name">VORTEX</div><div class="brand-sub">CONTROL SYSTEM</div></div></div>
-  <div class="status" id="topStatus">LOCKED</div>
-</header>
 
-<main>
-<section id="activation">
-  <div class="hero">
-    <div class="eyebrow">PRIVATE ACCESS / 01</div>
-    <h1>Enter your<br>next dimension.</h1>
-    <p>Activate your license to access the VORTEX control interface.</p>
-  </div>
-  <div class="hero-art"><div class="vortex-mark">V</div></div>
-  <div class="panel">
-    <div class="panel-head"><h2>License activation</h2><span class="tag">SECURE</span></div>
-    <p>Enter your license key to verify access.</p>
-    <form id="licenseForm">
-      <input id="licenseKey" class="field" type="text" placeholder="Enter license key" autocomplete="off" autocapitalize="characters" required>
-      <button class="primary" id="verifyBtn" type="submit">VERIFY LICENSE ↗</button>
-      <div id="licenseMessage" class="message" role="status" aria-live="polite"></div>
-    </form>
-  </div>
-  <p class="notice">Your key is sent to the configured VORTEX license API for verification.</p>
-</section>
+<section id="loginScreen" class="screen">
+  <div class="login">
+    <div class="brand">
+      <div class="logo">V</div>
+      <h1>VORTEX</h1>
+      <p>PRIVATE MOBILE INTERFACE</p>
+    </div>
 
-<section id="dashboard" class="hidden">
-  <div class="hero">
-    <div class="eyebrow">CONTROL CENTER / 02</div>
-    <h1>Welcome to<br>VORTEX.</h1>
-    <p>Your access has been verified. Configure your session below.</p>
-  </div>
+    <div class="panel">
+      <div class="eyebrow">LICENSE ACCESS</div>
+      <h2>Welcome back.</h2>
+      <p class="sub">Enter your license key to access the VORTEX dashboard.</p>
 
-  <div class="panel">
-    <div class="panel-head"><h2>License status</h2><span class="tag">VERIFIED</span></div>
-    <div class="stat-row">
-      <div class="stat"><small>PRODUCT</small><strong id="productValue">EXTERNAL</strong></div>
-      <div class="stat"><small>STATUS</small><strong id="statusValue">Active</strong></div>
-      <div class="stat"><small>DAYS REMAINING</small><strong id="daysValue">—</strong></div>
-      <div class="stat"><small>DEVICE BOUND</small><strong id="deviceValue">—</strong></div>
+      <form id="licenseForm">
+        <input class="field" id="licenseKey" placeholder="ENTER YOUR LICENSE KEY" autocomplete="off" required>
+        <button class="primary" id="activateKey" type="submit">VERIFY LICENSE ↗</button>
+      </form>
+      <div id="loginStatus" class="status" role="status"></div>
     </div>
   </div>
-
-  <div class="section-title"><h2>Select game</h2><span>GAME VERSION</span></div>
-  <div class="game-options">
-    <button class="game-option active" data-game="ff"><strong>FREE FIRE</strong><span>Standard edition</span></button>
-    <button class="game-option" data-game="ffmax"><strong>FREE FIRE MAX</strong><span>MAX edition</span></button>
-  </div>
-
-  <div class="section-title"><h2>Features</h2><span>SELECT ONE</span></div>
-  <div class="feature-grid">
-    <button class="feature active" data-feature="AIM"><div class="feature-icon">⌖</div><strong>AIM</strong><small>Feature selected</small></button>
-    <button class="feature" data-feature="HOLOGRAM"><div class="feature-icon">◇</div><strong>HOLOGRAM</strong><small>Tap to select</small></button>
-  </div>
-
-  <button class="primary" id="activateBtn">ACTIVATE & OPEN GAME ↗</button>
-  <div id="gameMessage" class="message" role="status" aria-live="polite"></div>
-  <p class="notice">VORTEX does not modify the game. The button attempts to open the selected game if it is installed and supports its app URL scheme.</p>
 </section>
 
-<section id="infoPage" class="hidden">
-  <div class="hero"><div class="eyebrow">SYSTEM / 03</div><h1>Information.</h1><p>VORTEX application and license details.</p></div>
-  <div class="panel"><div class="panel-head"><h2>Application</h2><span class="tag">VORTEX</span></div><div class="stat-row"><div class="stat"><small>VERSION</small><strong>1.0.0</strong></div><div class="stat"><small>ACCESS</small><strong id="infoAccess">Locked</strong></div></div></div>
-  <div class="panel"><h2>About VORTEX</h2><p>A mobile-first control interface with license verification and game selection.</p></div>
-</section>
+<main id="app" class="hidden">
+  <header class="topbar">
+    <div class="mini-brand">
+      <div class="mini-logo">V</div>
+      <div><strong>VORTEX</strong><small>CONTROL CENTER</small></div>
+    </div>
 
-<section id="settingsPage" class="hidden">
-  <div class="hero"><div class="eyebrow">PREFERENCES / 04</div><h1>Settings.</h1><p>Manage this app's local session.</p></div>
-  <div class="panel"><div class="panel-head"><h2>Session</h2><span class="tag">LOCAL</span></div><p>Logging out returns you to the license activation screen.</p><button class="primary" id="logoutBtn">LOG OUT</button></div>
-</section>
-<footer>VORTEX © CONTROL SYSTEM</footer>
+    <div class="game-switch">
+      <button class="active" data-game="freefire">FREE FIRE</button>
+      <button data-game="freefiremax">FF MAX</button>
+    </div>
+  </header>
+
+  <section id="homePage" class="page active">
+    <div class="panel hero">
+      <div class="eyebrow">DASHBOARD / 01</div>
+      <h2 id="welcomeGame">Free Fire</h2>
+      <p>Choose a section to view its options.</p>
+      <p class="online">● ONLINE</p>
+    </div>
+
+    <div class="section-title">
+      <h3>FEATURE MENU</h3>
+      <span>ONE OPTION PER SECTION</span>
+    </div>
+
+    <section class="feature-card" data-category="aim">
+      <button class="feature-head" type="button" aria-expanded="false">
+        <span class="feature-icon">⌖</span>
+        <span class="feature-name"><strong>AIM</strong><small>Aim menu</small></span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="feature-options">
+        <div class="option" data-option="AIM BODY"><div><strong>AIM BODY</strong><small>Body option</small></div><button class="toggle" aria-label="Toggle AIM BODY" aria-pressed="false"></button></div>
+        <div class="option" data-option="AIM DRAG"><div><strong>AIM DRAG</strong><small>Drag option</small></div><button class="toggle" aria-label="Toggle AIM DRAG" aria-pressed="false"></button></div>
+        <div class="option" data-option="AIM HEAD"><div><strong>AIM HEAD</strong><small>Head option</small></div><button class="toggle" aria-label="Toggle AIM HEAD" aria-pressed="false"></button></div>
+        <div class="option" data-option="AIM NECK"><div><strong>AIM NECK</strong><small>Neck option</small></div><button class="toggle" aria-label="Toggle AIM NECK" aria-pressed="false"></button></div>
+        <div class="option" data-option="MAGIC BULLET"><div><strong>MAGIC BULLET</strong><small>Feature option</small></div><button class="toggle" aria-label="Toggle MAGIC BULLET" aria-pressed="false"></button></div>
+      </div>
+    </section>
+
+    <section class="feature-card" data-category="hologram">
+      <button class="feature-head" type="button" aria-expanded="false">
+        <span class="feature-icon">◇</span>
+        <span class="feature-name"><strong>HOLOGRAM</strong><small>Visual menu</small></span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="feature-options">
+        <div class="option" data-option="3D WEAPONS"><div><strong>3D WEAPONS</strong><small>Weapon visual option</small></div><button class="toggle" aria-label="Toggle 3D WEAPONS" aria-pressed="false"></button></div>
+        <div class="option" data-option="HOLO PLAYER"><div><strong>HOLO PLAYER</strong><small>Player visual option</small></div><button class="toggle" aria-label="Toggle HOLO PLAYER" aria-pressed="false"></button></div>
+      </div>
+    </section>
+
+    <button id="launchGame" class="launch">↗ &nbsp; <span id="launchText">OPEN FREE FIRE</span></button>
+    <p class="status" style="text-align:center">Selections change this interface only.</p>
+  </section>
+
+  <section id="infoPage" class="page">
+    <div class="section-title"><h3>INFO & COMMUNITY</h3><span>TELEGRAM</span></div>
+    <div class="panel">
+      <div class="info-item">
+        <strong>BOT</strong><small>VORTEX support bot</small>
+        <a class="link-btn" href="https://t.me/FFPROXYIBOT" target="_blank" rel="noopener">@FFPROXYIBOT ↗</a>
+      </div>
+      <div class="info-item">
+        <strong>CHANNEL</strong><small>Telegram channel</small>
+        <a class="link-btn" href="https://t.me/store_wwe" target="_blank" rel="noopener">t.me/store_wwe ↗</a>
+      </div>
+      <div class="info-item">
+        <strong>VORTEX CHANNEL</strong><small>Official VORTEX channel</small>
+        <a class="link-btn" href="https://t.me/VORTEXOWN" target="_blank" rel="noopener">t.me/VORTEXOWN ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="settingsPage" class="page">
+    <div class="section-title"><h3>SETTINGS</h3><span>LICENSE DETAILS</span></div>
+    <div class="panel">
+      <div class="setting-row"><strong>LICENSE STATUS</strong><div id="licenseState" class="value">VALID</div></div>
+      <div class="setting-row"><strong>LICENSE DURATION</strong><div id="licenseDuration" class="value">Not provided by API</div></div>
+      <div class="setting-row"><strong>LICENSE KEY</strong><div id="keyStyle" class="value">••••••••</div></div>
+      <div class="setting-row"><strong>SELECTED GAME</strong><div id="settingsGame" class="value">Free Fire</div></div>
+      <button id="showKey" class="secondary" type="button">SHOW / HIDE LICENSE KEY</button>
+      <button id="logout" class="secondary" type="button">RETURN TO LICENSE SCREEN</button>
+    </div>
+  </section>
 </main>
-</div>
 
-<nav class="bottom-nav hidden" id="bottomNav">
+<nav id="bottomNav" class="bottom-nav hidden">
   <div class="nav-inner">
-    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>HOME</button>
-    <button class="nav-btn" data-page="aim"><span class="nav-icon">⌖</span>AIM</button>
-    <button class="nav-btn" data-page="hologram"><span class="nav-icon">◇</span>HOLOGRAM</button>
-    <button class="nav-btn" data-page="info"><span class="nav-icon">ⓘ</span>INFO</button>
-    <button class="nav-btn" data-page="settings"><span class="nav-icon">⚙</span>SETTINGS</button>
+    <button class="nav-btn active" data-page="homePage"><span class="nav-icon">⌂</span>HOME</button>
+    <button class="nav-btn" data-page="infoPage"><span class="nav-icon">ⓘ</span>INFO</button>
+    <button class="nav-btn" data-page="settingsPage"><span class="nav-icon">⚙</span>SETTINGS</button>
   </div>
 </nav>
 
+<div id="toast" class="toast hidden" role="status"></div>
+
 <script>
-const API_URL = "https://file-action--wwala8317.replit.app/api/external/licenses/verify";
+(() => {
+  const API_URL = "https://file-action--wwala8317.replit.app/api/external/licenses/verify";
+  const $ = id => document.getElementById(id);
 
-const activation = document.getElementById("activation");
-const dashboard = document.getElementById("dashboard");
-const infoPage = document.getElementById("infoPage");
-const settingsPage = document.getElementById("settingsPage");
-const bottomNav = document.getElementById("bottomNav");
-const licenseForm = document.getElementById("licenseForm");
-const licenseKey = document.getElementById("licenseKey");
-const verifyBtn = document.getElementById("verifyBtn");
-const licenseMessage = document.getElementById("licenseMessage");
-const gameMessage = document.getElementById("gameMessage");
-const topStatus = document.getElementById("topStatus");
+  let licenseKey = "";
+  let game = "freefire";
+  let keyVisible = false;
+  let toastTimer;
 
-let licenseVerified = false;
-let selectedGame = "ff";
-let selectedFeature = "AIM";
-let currentPage = "home";
-
-function showMessage(element, text, kind) {
-  element.textContent = text;
-  element.className = "message " + kind;
-}
-function showPage(page) {
-  currentPage = page;
-  activation.classList.toggle("hidden", licenseVerified);
-  dashboard.classList.toggle("hidden", !licenseVerified || !["home","aim","hologram"].includes(page));
-  infoPage.classList.toggle("hidden", !licenseVerified || page !== "info");
-  settingsPage.classList.toggle("hidden", !licenseVerified || page !== "settings");
-  bottomNav.classList.toggle("hidden", !licenseVerified);
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.page === page || (page === "aim" && b.dataset.page === "aim") || (page === "hologram" && b.dataset.page === "hologram")));
-  if (licenseVerified && (page === "aim" || page === "hologram")) {
-    selectedFeature = page.toUpperCase();
-    updateFeatureUI();
+  function toast(message) {
+    $("toast").textContent = message;
+    $("toast").classList.remove("hidden");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $("toast").classList.add("hidden"), 2600);
   }
-}
-function updateFeatureUI() {
-  document.querySelectorAll(".feature").forEach(b => {
-    const active = b.dataset.feature === selectedFeature;
-    b.classList.toggle("active", active);
-    b.querySelector("small").textContent = active ? "Feature selected" : "Tap to select";
-  });
-}
-function selectFeature(feature) {
-  selectedFeature = feature;
-  updateFeatureUI();
-  showPage(feature.toLowerCase());
-}
-function openSelectedGame() {
-  const scheme = selectedGame === "ffmax" ? "freefiremax://" : "freefire://";
-  const store = selectedGame === "ffmax"
-    ? "https://apps.apple.com/app/id1480516829"
-    : "https://apps.apple.com/app/id1300146617";
-  showMessage(gameMessage, "Opening the selected game…", "success");
-  // iOS opens the app only if it is installed and registered for this URL scheme.
-  window.location.href = scheme;
-  setTimeout(() => {
-    showMessage(gameMessage, "If the game did not open, make sure it is installed. You can open its App Store page.", "error");
-    const link = document.createElement("a");
-    link.href = store;
-    link.textContent = " Open App Store";
-    link.style.color = "#b6a2ff";
-    link.style.display = "inline-block";
-    link.style.marginTop = "8px";
-    gameMessage.appendChild(link);
-  }, 1800);
-}
 
-licenseForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const key = licenseKey.value.trim();
-  if (!key) {
-    showMessage(licenseMessage, "Please enter your license key.", "error");
-    return;
+  function status(message, type = "") {
+    $("loginStatus").textContent = message;
+    $("loginStatus").className = "status " + type;
   }
-  verifyBtn.disabled = true;
-  verifyBtn.innerHTML = '<span class="spinner"></span>VERIFYING LICENSE';
-  licenseMessage.className = "message";
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({ key })
-    });
-    let data;
-    try { data = await response.json(); }
-    catch { throw new Error("The API returned an unreadable response."); }
 
-    if (response.ok && data.ok === true && data.code === "LICENSE_VALID") {
-      licenseVerified = true;
-      topStatus.textContent = "AUTHORIZED";
-      document.getElementById("productValue").textContent = data.product || "EXTERNAL";
-      document.getElementById("statusValue").textContent = data.status || "Active";
-      document.getElementById("daysValue").textContent = Number.isFinite(data.remaining_days) ? data.remaining_days : "—";
-      document.getElementById("deviceValue").textContent = data.device_bound === true ? "Yes" : data.device_bound === false ? "No" : "—";
-      document.getElementById("infoAccess").textContent = "Verified";
-      showPage("home");
-    } else {
-      const messages = {
-        INVALID_KEY: "This license key was not found.",
-        LICENSE_EXPIRED: "This license has expired.",
-        DEVICE_MISMATCH: "This license is bound to another device."
-      };
-      showMessage(licenseMessage, messages[data.code] || data.message || "License verification failed.", "error");
+  function updateKeyDisplay() {
+    $("keyStyle").textContent = keyVisible
+      ? licenseKey
+      : "•".repeat(Math.min(Math.max(licenseKey.length, 8), 24));
+  }
+
+  function showDashboard(data) {
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    $("bottomNav").classList.remove("hidden");
+    $("licenseState").textContent = "VALID";
+
+    const duration = data.duration ?? data.durationText ??
+      data.expiresIn ?? data.remainingTime ?? data.expiresAt;
+
+    $("licenseDuration").textContent =
+      duration == null ? "Not provided by API" : String(duration);
+
+    updateKeyDisplay();
+  }
+
+  $("licenseForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const key = $("licenseKey").value.trim();
+    if (!key) return;
+
+    const button = $("activateKey");
+    button.disabled = true;
+    button.textContent = "VERIFYING...";
+    status("Checking your license…");
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ key })
+      });
+
+      let data = {};
+      try { data = await response.json(); } catch (_) {}
+
+      if (response.ok && data.ok === true && data.code === "LICENSE_VALID") {
+        licenseKey = key;
+        status("");
+        showDashboard(data);
+      } else {
+        const messages = {
+          INVALID_KEY: "Invalid license key.",
+          LICENSE_EXPIRED: "This license has expired.",
+          DEVICE_MISMATCH: "This license is linked to another device."
+        };
+
+        status(messages[data.code] || data.message || "License verification failed.", "error");
+      }
+    } catch (_) {
+      status("Cannot connect to the server. Check the API and internet connection.", "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "VERIFY LICENSE ↗";
     }
-  } catch (error) {
-    showMessage(licenseMessage, "Unable to contact the license API. Check your connection and try again. " + error.message, "error");
-  } finally {
-    verifyBtn.disabled = false;
-    verifyBtn.textContent = "VERIFY LICENSE ↗";
-  }
-});
-
-document.querySelectorAll(".game-option").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedGame = button.dataset.game;
-    document.querySelectorAll(".game-option").forEach(b => b.classList.toggle("active", b === button));
-    gameMessage.className = "message";
   });
-});
-document.querySelectorAll(".feature").forEach(button => {
-  button.addEventListener("click", () => selectFeature(button.dataset.feature));
-});
-document.querySelectorAll(".nav-btn").forEach(button => {
-  button.addEventListener("click", () => showPage(button.dataset.page));
-});
-document.getElementById("activateBtn").addEventListener("click", () => {
-  if (!licenseVerified) return;
-  const button = document.getElementById("activateBtn");
-  button.disabled = true;
-  button.innerHTML = '<span class="spinner"></span>PREPARING SESSION';
-  setTimeout(() => {
-    button.disabled = false;
-    button.textContent = "ACTIVATE & OPEN GAME ↗";
-    openSelectedGame();
-  }, 2200);
-});
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  licenseVerified = false;
-  licenseKey.value = "";
-  topStatus.textContent = "LOCKED";
-  showPage("home");
-  licenseMessage.className = "message";
-});
-showPage("home");
+
+  document.querySelectorAll(".game-switch button").forEach(button => {
+    button.addEventListener("click", () => {
+      game = button.dataset.game;
+
+      document.querySelectorAll(".game-switch button")
+        .forEach(item => item.classList.toggle("active", item === button));
+
+      $("welcomeGame").textContent =
+        game === "freefire" ? "Free Fire" : "Free Fire MAX";
+
+      $("launchText").textContent =
+        game === "freefire" ? "OPEN FREE FIRE" : "OPEN FREE FIRE MAX";
+
+      $("settingsGame").textContent =
+        game === "freefire" ? "Free Fire" : "Free Fire MAX";
+    });
+  });
+
+  document.querySelectorAll(".feature-head").forEach(button => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".feature-card");
+      card.classList.toggle("open");
+      button.setAttribute("aria-expanded", String(card.classList.contains("open")));
+    });
+  });
+
+  document.querySelectorAll(".option .toggle").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const option = toggle.closest(".option");
+      const card = toggle.closest(".feature-card");
+      const turningOn = !toggle.classList.contains("on");
+
+      if (turningOn) {
+        card.querySelectorAll(".toggle").forEach(other => {
+          other.classList.remove("on");
+          other.setAttribute("aria-pressed", "false");
+          other.closest(".option").classList.remove("selected");
+        });
+      }
+
+      toggle.classList.toggle("on", turningOn);
+      toggle.setAttribute("aria-pressed", String(turningOn));
+      option.classList.toggle("selected", turningOn);
+
+      toast(option.dataset.option + (turningOn ? " selected" : " turned off"));
+    });
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.page;
+
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.toggle("active", page.id === target);
+      });
+
+      document.querySelectorAll(".nav-btn").forEach(nav => {
+        nav.classList.toggle("active", nav === button);
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  $("launchGame").addEventListener("click", () => {
+    const button = $("launchGame");
+    if (button.disabled) return;
+
+    button.disabled = true;
+    $("launchText").textContent = "STARTING...";
+    toast("Preparing to open the selected game…");
+
+    setTimeout(() => {
+      const scheme = game === "freefire" ? "freefire://" : "freefiremax://";
+      window.location.href = scheme;
+
+      setTimeout(() => {
+        button.disabled = false;
+        $("launchText").textContent =
+          game === "freefire" ? "OPEN FREE FIRE" : "OPEN FREE FIRE MAX";
+      }, 1000);
+    }, 2500);
+  });
+
+  $("showKey").addEventListener("click", () => {
+    keyVisible = !keyVisible;
+    updateKeyDisplay();
+  });
+
+  $("logout").addEventListener("click", () => {
+    licenseKey = "";
+    keyVisible = false;
+    $("licenseKey").value = "";
+    $("app").classList.add("hidden");
+    $("bottomNav").classList.add("hidden");
+    $("loginScreen").classList.remove("hidden");
+    status("");
+  });
+})();
 </script>
+
 </body>
 </html>
