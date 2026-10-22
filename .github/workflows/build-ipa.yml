@@ -19,12 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Verify web entry
+      - name: Build web assets
         run: |
           test -f index.html
           npm run build
@@ -44,7 +43,6 @@ jobs:
         run: |
           cd ios/App
           pod install --repo-update
-          cd ../..
 
       - name: Build iOS app
         run: |
