@@ -4,6 +4,9 @@ name: Build VORTEX IPA
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: macos-15
@@ -16,23 +19,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build web assets
-        run: npm run build
-
-      - name: Add iOS platform
+      - name: Verify web entry
         run: |
-          npm install @capacitor/ios@^7.4.3
-          npx cap add ios
+          test -f index.html
+          npm run build
+          test -f www/index.html
+
+      - name: Install Capacitor iOS
+        run: npm install @capacitor/ios@^7.4.3
+
+      - name: Prepare iOS project
+        run: |
+          if [ ! -d ios/App/App.xcodeproj ]; then
+            npx cap add ios
+          fi
           npx cap sync ios
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios/App
+          pod install --repo-update
+          cd ../..
 
       - name: Build iOS app
         run: |
           xcodebuild \
-            -project ios/App/App.xcodeproj \
+            -workspace ios/App/App.xcworkspace \
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
@@ -40,14 +57,19 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
-      - name: Package app
+      - name: Package unsigned IPA
         run: |
+          APP_PATH="build/Build/Products/Release-iphoneos/App.app"
+          test -d "$APP_PATH"
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/App.app Payload/
-          zip -r VORTEX-unsigned.ipa Payload
+          cp -R "$APP_PATH" Payload/App.app
+          /usr/bin/zip -qry VORTEX-unsigned.ipa Payload
+          test -f VORTEX-unsigned.ipa
 
-      - name: Upload IPA
+      - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
           name: VORTEX-unsigned-IPA
           path: VORTEX-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 7
